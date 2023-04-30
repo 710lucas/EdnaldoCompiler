@@ -1,11 +1,15 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         ArrayList<String> linhasComputadas = new ArrayList<>();
 
@@ -14,7 +18,7 @@ public class Main {
             while(fscan.hasNext()){
                 String linha = processaString(fscan.nextLine());
                 if(linha!=null)
-                    linhasComputadas.add(linha);
+                    linhasComputadas.add(String.valueOf(Integer.parseInt(linha, 16)));
 
 
             }
@@ -22,9 +26,14 @@ public class Main {
             throw new RuntimeException(e);
         }
 
+        String strFinal = "";
+
         for(String linha : linhasComputadas){
             System.out.println(linha);
+            strFinal = strFinal.concat(linha+"\n");
         }
+        System.out.println(strFinal);
+        Files.write(Path.of("teste"), strFinal.getBytes());
     }
 
 
@@ -65,12 +74,12 @@ public class Main {
                     throw new RuntimeException(e);
             }
 
-            if(nmr >= 10 && nmr<= 99){
+            if(nmr >= 0x10 && nmr<= 0xFF){
 
                 //Integer.toHexString(numero*precisa ser int);
-                out="1"+Integer.toString(nmr);
-            } else if (nmr<10 && nmr >= 0) {
-                out="10"+Integer.toString(nmr);
+                out="1"+Integer.toHexString(nmr);
+            } else if (nmr<0x10 && nmr >= 0) {
+                out="10"+Integer.toHexString(nmr);
             }
 
 

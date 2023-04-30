@@ -17,8 +17,10 @@ public class Main {
         try(Scanner fscan = new Scanner(f)){
             while(fscan.hasNext()){
                 String linha = processaString(fscan.nextLine());
-                if(linha!=null)
+                if(linha!=null) {
+                    System.out.println(linha);
                     linhasComputadas.add(String.valueOf(Integer.parseInt(linha, 16)));
+                }
 
 
             }
@@ -93,6 +95,22 @@ public class Main {
                 out = "600"+regsValidos.indexOf(input.split(" ")[0]);
             else
                 throw new RuntimeException("Registrador invalido, precisa ser A B ou C\n Nome do registrador informado: "+input.split(" ")[0]);
+        }
+        else if(input.contains("é igual ao que")){
+            //A e B é igual ao que C
+            if(regsValidos.contains(input.split(" ")[0]) && regsValidos.contains(input.split(" ")[2]) && regsValidos.contains(input.split(" ")[7])){
+                out="3"+regsValidos.indexOf(input.split(" ")[0])+regsValidos.indexOf(input.split(" ")[2])+regsValidos.indexOf(input.split(" ")[7]);
+            }
+            else
+                throw new RuntimeException("Registrador invalido, precisa ser A B ou C");
+        }
+        else if(input.contains("qual é a diferença")){
+            //A e B é igual ao que C
+            if(regsValidos.contains(input.split(" ")[0]) && regsValidos.contains(input.split(" ")[2]) && regsValidos.contains(input.split(" ")[4])){
+                out="4"+regsValidos.indexOf(input.split(" ")[2])+regsValidos.indexOf(input.split(" ")[4])+regsValidos.indexOf(input.split(" ")[0]);
+            }
+            else
+                throw new RuntimeException("Registrador invalido, precisa ser A B ou C");
         }
 
         return out;
